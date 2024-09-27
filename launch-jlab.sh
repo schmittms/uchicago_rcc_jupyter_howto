@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-gpu=2
-timeh=48
-MEM="50G"
+gpu=0
+timeh=12
+MEM="8G"
 while getopts g:t:m: flag
 do
 	case "${flag}" in
@@ -19,21 +19,6 @@ then
 		PART="gpu"
 		GRES="gpu:1"
  		QOS=""          # QOS to use. If left unset it will use the default QOS
-elif [ $gpu == 2 ]
-then 
-		PART="vitelli-gpu"
-		GRES="gpu:1"
- 		QOS=""          # QOS to use. If left unset it will use the default QOS
-elif [ $gpu == 3 ]
-then
-		PART="vitelli"
-		GRES=""
- 		QOS=""          # QOS to use. If left unset it will use the default QOS
-elif [ $gpu == 4 ]
-then
-		PART="vitelli-amd"
-		GRES=""
- 		QOS="vitelli"          # QOS to use. If left unset it will use the default QOS
 else
 		PART="caslake"
 		GRES=""
@@ -44,17 +29,17 @@ fi
  TIME="$timeh:00:00"  # Set walltime -- (e.g. 4 hours)
  ACCOUNT="pi-vitelli"      # PI account to use. If left unset it will use your default acct.
  PYTHON_MODULE="python/anaconda-2022.05"  # Python module to use -- Anaconda3 dist of python
- #PYTHON_MODULE="python"  # Python module to use -- Anaconda3 dist of python
  CONDA_ENV="/project/vitelli/matthew/torch_venv/"    # conda environment name to source. If left unset it will use the base conda
  CONSTRAINT=""   # Set slurm resource constraints. If left unset no constraints applied.
 ######################################################################################
 #SET THE PORT NUMBER
 PORT_NUM=8111
 #$(shuf -i8000-9000 -n1)
-#
+
+#rm jupyter-server.sbatch
+
 # TRAP SIGINT AND SIGTERM OF THIS SCRIPT
 
-rm jupyter-server.sbatch
 
 function control_c {
     echo -en "\n SIGINT: TERMINATING SLURM JOBID $JOBID AND EXITING \n"
@@ -193,6 +178,6 @@ NB_ADDRESS_EXTERNAL=$( echo "$NB_ADDRESS"   | sed -e "s/$HOST_IP/localhost/g" )
   echo "  "
 #
 # CLEANUP
-#  rm jupyter-server.sbatch
+rm jupyter-server.sbatch
 #
 # EOF
