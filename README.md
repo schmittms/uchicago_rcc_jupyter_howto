@@ -8,15 +8,17 @@ Activate python (you probably want to use whichever version is most recent):
 
 Create an environment and make sure it is empty by using the ```no-default-packages``` flag. I have had issues with the environment not using the version of Jupyter I want if I omit this.
 
-```conda env create --no-default-packages -p /path/to/env/new_venv/```
+```conda create --no-default-packages -p /path/to/env/new_venv/```
 
-Activate your environment and install some packages:
+Activate your environment and install some packages. 
 
 ```
 source activate /path/to/env/new_venv/
-(...install packages you want...)
-conda install jupyterlab
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+conda install -c conda-forge jupyter-lab numpy matplotlib
 ```
+
+Choosing a pytorch with cuda is necessary if you will want to use GPU later on.
 
 ## Step 2: Modify the ```launch_jlab.sh``` script:
 
