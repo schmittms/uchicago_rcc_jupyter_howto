@@ -15,7 +15,7 @@ Activate your environment and install some packages.
 ```
 source activate /path/to/env/new_venv/
 conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
-conda install -c conda-forge jupyter-lab numpy matplotlib
+conda install -c conda-forge jupyterlab numpy matplotlib
 ```
 
 Choosing a pytorch with cuda is necessary if you will want to use GPU later on.
